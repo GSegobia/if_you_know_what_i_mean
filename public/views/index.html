@@ -24,8 +24,7 @@
 	          </div>
 	          <div id="navbar" class="nav navbar-nav navbar-right">
 	            <ul class="nav navbar-nav">
-	              	<li><a href="/users">Registrar Usuário</a></li>
-	              	<li><a href="/">Usuários</a></li>
+	              	<li><a href="https://github.com/gsegobia/if_you_know_what_i_mean" target="_blank">Repositório no Github</a></li>
 	            </ul>
 	          </div>
 	        </div>
@@ -36,10 +35,47 @@
 	   	<div class="container minimum">
 	   		<div class="row">
 			   	<div class="col-md-12">
-				    <legend>Lista de Usuarios</legend>
+				    <legend>CRUD Usuários</legend>
 				</div>
 			</div>
+
 			<div class="row">
+
+		    	<div class="col-md-8 col-md-offset-2">
+		    		<form action="/api/users" method="post" class="form-horizontal">
+		    			<div class="row">
+		    				<legend> Inserir Usuário </legend>
+		    			</div>
+		    			<div class="row">
+			    			<div class="form-group col-md-6" style="margin-right: 10px;">
+			    				<label class="control-label">Nome</label>
+			    				<input class="form-control input-md" type="text" name="nome" placeholder="Digite o seu Nome" required="true"/>
+			    			</div>
+			    			<div class="form-group col-md-6">
+			    				<label>Usuario</label>
+			    				<input class="form-control input-md" type="text" name="usuario" placeholder="Digite o seu usuário" required="true"/>
+			    			</div>
+			    		</div>
+			    		<div class="row">
+			    			<div class="form-group col-md-6" style="margin-right: 10px;">
+			    				<label>E-mail</label>
+			    				<input class="form-control input-md" type="email" name="email" placeholder="Digite o seu E-mail" required="true"/>
+			    			</div>
+			    			<div class="form-group col-md-6">
+			    				<label>Senha</label>
+			    				<input class="form-control input-md" type="password" name="senha" placeholder="Digite a sua senha" required="true"/>
+			    			</div>
+			    		</div>
+		    			<div class="row">
+			    			<div class="form-group col-md-4 pull-right">
+			    				<input class="btn btn-block btn-primary " type="submit" name="submit" value="Enviar Registro"/>
+			    			</div>
+		    			</div>
+		    		</form>
+		    	</div>
+		    </div>
+
+			<div class="row" style="margin-top:20px; margin-bottom: 200px;">
 		    	<div class="col-md-8 col-md-offset-2 text-center">
 		    		<table class="table table-hover">
 			    		<thead>

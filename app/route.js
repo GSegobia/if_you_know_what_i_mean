@@ -79,8 +79,4 @@ module.exports = function(app){
 		res.sendfile('./public/views/index.html');
 	});
 
-		app.get('/users', function(req, res){
- 		res.sendfile('./public/views/cadastro.html');
-	});
-
 };

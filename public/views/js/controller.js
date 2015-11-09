@@ -38,8 +38,6 @@ app.controller("MainController",function($http, $scope){
 				password: $scope.usuarioAtual.password
         	};
 
-        console.log(data);
-
            $http.put('/api/users/'+id,data).success(function (response) {
             });
 
