@@ -9,7 +9,6 @@ var methodOverride = require('method-override');
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); 
 app.use(bodyParser.urlencoded({
-	
 	extended: true
 }));
 app.use(methodOverride('X-HTTP-Method-Override'));

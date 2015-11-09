@@ -1,9 +1,121 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html >
+<html ng-app="MainApp">
 	<head>
-		<title>Test Page</title>
+		<title> Do it Yourself, motherfucker</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+		<script src="libs/jquery/dist/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="libs/bootstrap/dist/css/bootstrap.min.css" />
+		<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="views/js/controller.js"></script>
+		<link rel="stylesheet" type="text/css" href="views/css/custom.css" />
 	</head>
-	<body>
-		<h1>Working...</h1>
+	<body ng-controller="MainController as ctrl">
+		<!--HEADER -->
+		<nav class="navbar navbar-inverse navbar-default" >
+	        <div class="container-fluid">
+	          <div class="navbar-header">
+	            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	              <span class="sr-only">Toggle navigation</span>
+	              <span class="icon-bar"></span>
+	              <span class="icon-bar"></span>
+	              <span class="icon-bar"></span>
+	            </button>
+	            <a class="navbar-brand" href="/">Do it Yourself Motherfucker</a>
+	          </div>
+	          <div id="navbar" class="nav navbar-nav navbar-right">
+	            <ul class="nav navbar-nav">
+	              	<li><a href="/users">Registrar Usuário</a></li>
+	              	<li><a href="/">Usuários</a></li>
+	            </ul>
+	          </div>
+	        </div>
+	    </nav>
+	       <!--FIM HEADER -->
+
+	    <!--Content -->
+	   	<div class="container minimum">
+	   		<div class="row">
+			   	<div class="col-md-12">
+				    <legend>Lista de Usuarios</legend>
+				</div>
+			</div>
+			<div class="row">
+		    	<div class="col-md-8 col-md-offset-2 text-center">
+		    		<table class="table table-hover">
+			    		<thead>
+			    			<tr>
+			    				<th class="text-center">Nome</th>
+			    				<th class="text-center">Usuário</th>
+			    				<th class="text-center">E-mail</th>
+			    				<th class="text-center">CRUD</th>
+			    			</tr>
+			    		</thead>
+			    		<tbody>
+			    			<tr ng-repeat="usuario in usuarios">
+			    				<td><a ng-href="api/users/{{usuario._id}}">{{usuario.name}}</a></td>
+			    				<td>{{usuario.username}}</td>
+			    				<td>{{usuario.email}}</td>
+			    				<td>
+			    					<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalEdita">
+  										<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
+									</button>
+									<button type="button" class="btn btn-danger">
+  										<span class="glyphicon glyphicon-thrash" aria-hidden="true"></span> Excluir
+									</button>
+			    			</tr>
+		    			</tbody>
+		    		</table>
+		    	</div>
+		    </div>
+		</div>
+	    <!--fim Content-->
+<!-- inicio modal -->
+
+<!-- Modal -->
+  <div class="modal fade" id="modalEdita" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Editar Usuário</h4>
+        </div>
+        <div class="modal-body">
+			<form action="/api/users" method="post" class="form-horizonta">
+		    	<div class="form-group">
+		    		<label class="control-label">Nome</label>
+		    		<input class="form-control input-md" type="text" name="nome" placeholder="Digite o seu Nome" required="true">
+		    	</div>
+		    	<div class="form-group">
+		    		<label>Usuario</label>
+		    		<input class="form-control input-md" type="text" name="usuario" placeholder="Digite o seu usuário" required="true"/>
+		    	</div>
+		    	<div class="form-group">
+		    		<label>E-mail</label>
+		    		<input class="form-control input-md" type="email" name="email" placeholder="Digite o seu E-mail" required="true"/>
+		    	</div>
+		    		<div class="form-group">
+		    			<label>Senha</label>
+		    			<input class="form-control input-md" type="password" name="senha" placeholder="Digite a sua senha" required="true"/>
+		    		</div>
+		    			<div class="row">
+			    			<div class="form-group col-md-4 pull-right">
+			    				<input class="btn btn-block btn-primary " type="submit" name="submit" value="Editar"/>
+			    			</div>
+		    			</div>
+		    		</form>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+<!-- footer -->
+<footer id="footer" class="footer text-center" style="background-color: #fffff; ">
+	<div class="container">
+		<p class="text-muted"> Sistema de Recomendações | 2015 - Todos os direitos reservados. Desenvolvido por <a href="http://www.pauloxavier.com" target="_blank" >Paulo Xavier</a> e <a href="https://www.facebook.com/gosegobia?fref=ts" target="_blank">Gabriel Segobia.<br><a href="mailto:contato.pauloxavier@gmail.com" target="_blank" ><span class="glyphicon glyphicon-envelope"> </span> contato.pauloxavier@gmail.com</a> ou <a href="mailto:segobia.gos@gmail.com" target="_blank" ><span class="glyphicon glyphicon-envelope"> </span> segobia.gos@gmail.com </a></p>
+	</div>
+</footer>
+<!-- fim footer-->
 	</body>
 </html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html >
+<html ng-app="MainApp">
+	<head>
+		<title> Do it Yourself, motherfucker</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+		<script src="libs/jquery/dist/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="libs/bootstrap/dist/css/bootstrap.min.css" />
+		<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="views/js/controller.js"></script>
+		<link rel="stylesheet" type="text/css" href="views/css/custom.css" />
+	</head>
+	<body ng-controller="MainController as ctrl">
+		<!--HEADER -->
+		<nav class="navbar navbar-inverse navbar-default" >
+	        <div class="container-fluid">
+	          <div class="navbar-header">
+	            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	              <span class="sr-only">Toggle navigation</span>
+	              <span class="icon-bar"></span>
+	              <span class="icon-bar"></span>
+	              <span class="icon-bar"></span>
+	            </button>
+	            <a class="navbar-brand" href="/">Do it Yourself Motherfucker</a>
+	          </div>
+	          <div id="navbar" class="nav navbar-nav navbar-right">
+	            <ul class="nav navbar-nav">
+	              	<li><a href="/users">Registrar Usuário</a></li>
+	              	<li><a href="/">Usuários</a></li>
+	            </ul>
+	          </div>
+	        </div>
+	    </nav>
+	       <!--FIM HEADER -->
+
+	    <!--Content -->
+	   	<div class="container minimum">
+	   		<div class="row">
+			   	<div class="col-md-12">
+				    <legend>Registro de Novo Usuario</legend>
+				</div>
+			</div>
+			<div class="row">
+		    	<div class="col-md-8 col-md-offset-2">
+		    		<form action="/api/users" method="post" class="form-horizonta">
+		    			<div class="form-group">
+		    				<label class="control-label">Nome</label>
+		    				<input class="form-control input-md" type="text" name="nome" placeholder="Digite o seu Nome" required="true"/>
+		    			</div>
+		    			<div class="form-group">
+		    				<label>Usuario</label>
+		    				<input class="form-control input-md" type="text" name="usuario" placeholder="Digite o seu usuário" required="true"/>
+		    			</div>
+		    			<div class="form-group">
+		    				<label>E-mail</label>
+		    				<input class="form-control input-md" type="email" name="email" placeholder="Digite o seu E-mail" required="true"/>
+		    			</div>
+		    			<div class="form-group">
+		    				<label>Senha</label>
+		    				<input class="form-control input-md" type="password" name="senha" placeholder="Digite a sua senha" required="true"/>
+		    			</div>
+		    			<div class="row">
+			    			<div class="form-group col-md-4 pull-right">
+			    				<input class="btn btn-block btn-primary " type="submit" name="submit" value="Enviar Registro"/>
+			    			</div>
+		    			</div>
+		    		</form>
+
+		    	</div>
+		    </div>
+		</div>
+	    <!--fim Content-->
+
+
+
+<!-- footer -->
+<footer id="footer" class="footer text-center" style="background-color: #fffff; ">
+	<div class="container">
+		<p class="text-muted"> Sistema de Recomendações | 2015 - Todos os direitos reservados. Desenvolvido por <a href="http://www.pauloxavier.com" target="_blank" >Paulo Xavier</a> e <a href="https://www.facebook.com/gosegobia?fref=ts" target="_blank">Gabriel Segobia.<br><a href="mailto:contato.pauloxavier@gmail.com" target="_blank" ><span class="glyphicon glyphicon-envelope"> </span> contato.pauloxavier@gmail.com</a> ou <a href="mailto:segobia.gos@gmail.com" target="_blank" ><span class="glyphicon glyphicon-envelope"> </span> segobia.gos@gmail.com </a></p>
+	</div>
+</footer>
+<!-- fim footer-->
+	</body>
+</html>

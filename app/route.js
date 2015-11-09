@@ -16,17 +16,18 @@ module.exports = function(app){
 	app.post('/api/users', function(req, res){
 
 		var user = new User();
-		user.name = req.body.name;
-		user.username = req.body.username;
+		user.name = req.body.nome;
+		user.username = req.body.usuario;
 		user.email = req.body.email;
-		user.password = req.body.password;
+		user.password = req.body.senha;
 
 		user.save(function(err){
 		
 			if(err)
 				res.send(err);
 
-			res.json({message: 'Usuário Criado'});
+			res.redirect('/');
+			//res.json({message: 'Usuário Criado'});
 		});
 	});
 
@@ -62,7 +63,7 @@ module.exports = function(app){
 				if(err)
 					res.send(err);
 
-				res.json({message: 'Usário Atualizado'});
+				res.json({message: 'Usuário Atualizado'});
 			});
 		});
 	});
@@ -78,8 +79,13 @@ module.exports = function(app){
 		});
 	});
 
-	app.get('*', function(req, res){
+	app.get('/', function(req, res){
 
 		res.sendfile('./public/views/index.html');
 	});
+
+		app.get('/users', function(req, res){
+ 		res.sendfile('./public/views/cadastro.html');
+	});
+
 };
