@@ -49,17 +49,12 @@ module.exports = function(app){
 			if(err)
 				res.send(err);
 
-			if(req.body.name != null)
-				user.name = req.body.name;
-			if(req.body.username != null)
-				user.username = req.body.username;
-			if(req.body.password != null)
-				user.email = req.body.email;
-			if(req.body.password != null)
-				user.password = req.body.password;
+			user.name = req.body.name;
+			user.username = req.body.username;
+			user.email = req.body.email;
+			user.password = req.body.password;
 
 			user.save(function(err){
-
 				if(err)
 					res.send(err);
 
