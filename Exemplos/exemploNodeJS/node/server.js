@@ -11,5 +11,5 @@ var server = http.createServer(function(request, response){
 });
 
 server.listen(5000, function(){
-	console.log('Executando server na porta 5000');
+	console.log('Executando server na porta 5000...');
 });

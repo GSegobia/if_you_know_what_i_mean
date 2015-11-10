@@ -9,6 +9,6 @@ app.get('/', function(req, res) {
     res.render('index.html');
 });
 
-app.listen(8080);
+app.listen(4000);
 
-console.log('Server rodando na porto 8080...');
+console.log('Server rodando na porta 4000...');
