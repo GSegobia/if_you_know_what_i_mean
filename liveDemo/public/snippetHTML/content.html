@@ -1,0 +1,42 @@
+<!--Content -->
+	   	<div class="container minimum">
+	   		<div class="row">
+			   	<div class="col-md-12">
+				    <legend>CRUD Usuários</legend>
+				</div>
+			</div>
+			<div class="row">
+		    	<div class="col-md-8 col-md-offset-2" ng-show="hide">
+		    		<form action="/api/users" method="post" class="form-horizontal">
+		    			<div class="row">
+		    				<legend> Inserir Usuário</legend>
+		    				
+		    			</div>
+		    			<div class="row">
+			    			<div class="form-group col-md-6" style="margin-right: 10px;">
+			    				<label class="control-label">Nome</label>
+			    				<input class="form-control input-md" type="text" name="nome" placeholder="Digite o seu Nome" required="true"/>
+			    			</div>
+			    			<div class="form-group col-md-6">
+			    				<label>Usuario</label>
+			    				<input class="form-control input-md" type="text" name="usuario" placeholder="Digite o seu usuário" required="true"/>
+			    			</div>
+			    		</div>
+			    		<div class="row">
+			    			<div class="form-group col-md-6" style="margin-right: 10px;">
+			    				<label>E-mail</label>
+			    				<input class="form-control input-md" type="email" name="email" placeholder="Digite o seu E-mail" required="true"/>
+			    			</div>
+			    			<div class="form-group col-md-6">
+			    				<label>Senha</label>
+			    				<input class="form-control input-md" type="password" name="senha" placeholder="Digite a sua senha" required="true"/>
+			    			</div>
+			    		</div>
+		    			<div class="row">
+			    			<div class="form-group col-md-4 pull-right">
+			    				<input class="btn btn-block btn-primary " type="submit" name="submit" value="Cadastrar Usuário"/>
+			    			</div>
+		    			</div>
+		    		</form>
+		    	</div>
+		    </div>

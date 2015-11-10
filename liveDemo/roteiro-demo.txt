@@ -1,0 +1,254 @@
+0- Criação de estrutura e download de dependências
+
+->Falar do bower e do npm
+
+Estrutura utilizada:
+
+rootFolder
+ app/
+        ----- models/
+        ---------- user.js // Schema de usuário para utilizarmos no MongoDB
+    ----- routes.js // Arquivo com as rotas, gets,puts,posts e deletes necessários
+    - config
+        ----- db.js  //Arquivo com conexão ao Banco de dados
+    - node_modules //Criado automaticamente pelo npm install, são os modulos do node, declarados no package.json
+    - public //Todos os arquivos que serão acessados pelo client ficam aqui
+    ----- css
+    ----- js/
+   		---controller.js // Controllers do Angular
+    ----- libs // Criados pelo bower, são as dependencias do projeto (angular.js,bootstrap e afins declarados no bower.json)
+    ----- views  //Arquivos html das paginas
+    ---------- index.html
+    - .bowerrc // diz ao bower onde colocar os arquivos
+    - bower.json // informa ao bower as dependencias que precisamos
+    - package.json // informa ao npm os modulos que utilizaremos 
+    - server.js // configuração do nosso servidor em node, responsável pelo back-end
+
+
+-Colocar os arquivos bower.json,package.json e .bowerrc no diretorio raiz;
+-Usar o comando: npm install para instalar os packages que estão no package.json;
+-Usar o comando: bower install para instalar os packages que estão no bower.json;
+
+
+1- Server.js
+
+-Inserir variaveis e inicializar as dependências da aplicação:
+
+var express  = require('express');
+var app = express();
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+
+-Determinar o uso das variáveis e seus modulos:
+
+app.use(bodyParser.json());
+app.use(bodyParser.json({ type: 'application/vnd.api+json' })); 
+app.use(bodyParser.urlencoded({
+	extended: true
+}));
+app.use(methodOverride('X-HTTP-Method-Override'));
+
+-Efetuar conexão com o banco:
+
+var db = require('./config/db'); <
+var mongoose = require('mongoose');
+mongoose.connect(db.url);
+
+
+-Declarar a porta onde será aberta a conexão do node, declarar os diretorios com arquivos estáticos que podem ser acessados pelo client, e inicializar o mesmo:
+
+var port = process.env.PORT || 8080;
+
+app.use(express.static(__dirname + '/public'));
+require('./app/route')(app);
+
+app.listen(port);
+
+console.log('Acesse localhost:' + port + '/api para ver sua aplicação!');
+
+exports = module.exports = app;
+
+2- Conectando ao banco
+
+Inserir no arquivo db.js
+
+module.exports = {
+	url: 'mongodb://localhost/users'
+}
+
+3- user.js
+
+Setar o schema para ser usado no mongo
+
+var mongoose = require('mongoose');
+
+var UserSchema = mongoose.Schema({
+	name: String,
+	username: {type: String, unique: true},
+	email: {type: String, unique: true},
+	password: String
+});
+
+module.exports = mongoose.model('User', UserSchema);
+
+4- routes.js
+
+-Dar require no schema que iremos utilizar com o mongoose para encapsular as operações do mongo:
+
+
+var User = require('./models/user');
+
+
+
+-Inserir get,post,put e delete nas rotas para efetuar as operações server-side no banco - EXPLICAR UMA A UMA
+
+
+
+module.exports = function(app){
+
+	app.get('/api/users', function(req, res){
+
+		User.find(function(err, users){
+
+			if(err)
+				res.send(err);
+
+			res.json(users);
+		});
+	});
+
+	app.post('/api/users', function(req, res){
+
+		var user = new User();
+		user.name = req.body.nome;
+		user.username = req.body.usuario;
+		user.email = req.body.email;
+		user.password = req.body.senha;
+
+		user.save(function(err){
+		
+			if(err)
+				res.send(err);
+
+			res.redirect('/');
+			//res.json({message: 'Usuário Criado'});
+		});
+	});
+
+	app.get('/api/users/:user_id', function(req, res){
+
+		User.findById(req.params.user_id, function(err, user){
+
+			if(err)
+				res.send(err);
+
+			res.json(user);
+		});
+	});
+
+	app.put('/api/users/:user_id', function(req, res){
+
+		User.findById(req.params.user_id, function(err, user){
+
+			if(err)
+				res.send(err);
+
+			user.name = req.body.name;
+			user.username = req.body.username;
+			user.email = req.body.email;
+			user.password = req.body.password;
+
+			user.save(function(err){
+				if(err)
+					res.send(err);
+
+				res.json({message: 'Usuário Atualizado'});
+			});
+		});
+	});
+
+	app.delete('/api/users/:user_id', function(req, res){
+
+		User.remove({_id: req.params.user_id}, function(err, user){
+
+			if(err)
+				res.send(err);
+
+			res.json({message: 'Usuário deletado com sucesso!'})
+		});
+	});
+
+	app.get('/', function(req, res){
+
+		res.sendfile('./public/views/index.html');
+	});
+
+};
+
+5- index.html
+
+Inserir arquivos html na ordem:
+header.html
+inserir.html -> demonstrar com form simples
+listar.html -> demonstrar com table simples, também tem exclusão e chamada da modal
+modal.html -> se sobrar tempo
+footer.html 
+
+
+6- controller.js
+
+Declarar aplicativo:
+
+var app=angular.module("MainApp",[]);
+
+
+Criar o escopo onde o angular fará as requisições em ajax que geramos na nossa API, dando get nos JSONs corretos
+
+
+app.controller("MainController",function($http, $scope){
+
+	$http.get("/api/users").success(function(response){
+			$scope.usuarios = response;
+			return $scope.usuarios;
+	});
+
+	$scope.deleteUser = function(id){
+		$http.delete("/api/users/"+id, { _id : id }).success(function(result) {
+      		console.log(result);
+      $scope.resultDelete = result;
+
+      $http.get("/api/users").success(function(response){
+			$scope.usuarios = response;
+	});
+
+	  }).error(function() {
+	      console.log("error");
+	  });
+	}
+
+	 $scope.showUser = function(id){
+    	$http.get("/api/users/"+id).success(function(response){
+    		$scope.usuarioAtual = response;
+		});
+
+    }
+
+    $scope.editUser = function(id){	
+        
+        var data = {
+	            name: $scope.usuarioAtual.name,
+				username: $scope.usuarioAtual.username,
+				email: $scope.usuarioAtual.email,
+				password: $scope.usuarioAtual.password
+        	};
+
+           $http.put('/api/users/'+id,data).success(function (response) {
+            });
+
+            $http.get("/api/users").success(function(response){
+					$scope.usuarios = response;
+			});
+    }
+	
+
+});
