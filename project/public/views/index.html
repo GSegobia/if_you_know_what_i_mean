@@ -76,10 +76,15 @@
 
 			<div class="row" style="margin-top:20px; margin-bottom: 200px;">
 		    	<div class="col-md-8 col-md-offset-2 text-center">
-		    		<div class="row">
-						<button type="button" class="btn btn-primary pull-right" ng-click="hide = !hide">
-  							<span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true" ></span> Adicionar Usuário
-						</button> 
+		    		<div class="row" style="margin-bottom:20px;">
+		    			<div class="col-md-6">
+		 					<input type="text" ng-model="usuarios.search" class="form-control input-md pull-left" id="projects_search" placeholder="Pesquisar Usuarios"/>
+		 				</div>
+		 				<div class="col-md-6">
+							<button type="button" class="btn btn-primary pull-right" ng-click="hide = !hide">
+	  							<span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true" ></span> Adicionar Usuário
+							</button> 
+						</div>
 					</div>
 		    	<div class="row">
 		    		<table class="table table-hover">
@@ -92,7 +97,7 @@
 			    			</tr>
 			    		</thead>
 			    		<tbody>
-			    			<tr ng-repeat="usuario in usuarios">
+			    			<tr ng-repeat="usuario in usuarios | filter:usuarios.search | orderBy:'name'">
 			    				<td><a ng-href="api/users/{{usuario._id}}">{{usuario.name}}</a></td>
 			    				<td>{{usuario.username}}</td>
 			    				<td>{{usuario.email}}</td>
